@@ -1,6 +1,6 @@
 # PROYECTO-FINAL
 
-<span style="font-size: 20px;">Texto con tamaño 20px</span>
+<span style="font-size: 100px;">Texto con tamaño 20px</span>
 
 
 ## Herramienta de Ciberseguridad Multiplataforma
