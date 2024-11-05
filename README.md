@@ -46,6 +46,13 @@ Realiza un análisis detallado del rendimiento de tu red.
 
 **analizar_rendimiento_red:** Realiza un análisis del rendimiento de la red, proporcionando métricas como la velocidad de conexión, latencia y posibles cuellos de botella.
 
+### Ejemplo de salida
+Cuando seleccionas una opción, el script generará un archivo de reporte con la fecha y hora actuales en el siguiente formato:
+
+      2024-11-05_14-30-25_Reporte_HashView.txt
+
+Este archivo de reporte contendra los resultados de la tarea seleccionada 
+
 ### Notas
 #### Requisitos del sistema: 
 Este script debe ejecutarse en un entorno Linux o Unix que tenga soporte para Bash. Asegúrate de tener permisos de administrador (root) si algunas funciones requieren acceso elevado (por ejemplo, escanear dispositivos en la red).
@@ -103,6 +110,7 @@ Cuando seleccionas una opción, el script generará un archivo de reporte con la
 
 Este archivo de reporte contendra los resultados de la tarea seleccionada 
 
+### Notas
 ### Requisitos del sistema
 Este script debe ejecutarse en una máquina que tenga PowerShell instalado. Es compatible con PowerShell 5.1 y versiones superiores, por lo que no deberías tener problemas para ejecutarlo en la mayoría de las instalaciones de Windows.
 
