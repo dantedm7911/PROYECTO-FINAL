@@ -1,0 +1,93 @@
+# Importamos los módulos necesarios
+Import-Module .\Recursos.psm1
+Import-Module .\TopProcess.psm1
+Import-Module .\BuscarArchivosOcultos.psm1
+Import-Module .\API_VIRUSTOTAL_2.psm1
+ 
+Set-StrictMode -Version Latest
+ 
+# Definimos la función get-menu con soporte de parámetros
+function get-menu {
+    [CmdletBinding()]
+    param (
+        # Archivo opcional de entrada para revisión de hashes o archivos ocultos
+        [Parameter(Mandatory = $false)]
+        [string]$InputFile
+    )
+ 
+    do {
+        try {
+            $menu = Read-Host " `nEscoja una opcion:`n 1: Revisión de hashes de archivos y consulta de API de Virus Total `n 2: Listado de archivos ocultos  `n 3: Listado de Uso de Recursos`n 4: Ver Proceso con más Recursos`n 5: Exit`n Opción"
+            switch ($menu) {
+                1 { 
+                    try {
+                        # Definimos la ruta de reporte con fecha y hora actuales
+                        $reportePath = "$((Get-Date).ToString('yyyy-MM-dd_HH-mm-ss'))_Reporte_HashView.txt"
+                        Write-Host "Realizando revisión de hashes y consulta de API"
+                        # Si se proporcionó un archivo de entrada, usarlo; de lo contrario, ejecutar la función
+                        if ($InputFile) {
+                            Write-Host "Usando el archivo de entrada: $InputFile para revisión de hashes"
+                            Get-Content $InputFile | ForEach-Object { Api_HashView $_ } | Out-File -FilePath $reportePath -Encoding utf8
+                        } else {
+                            Api_HashView | Out-File -FilePath $reportePath -Encoding utf8
+                        }
+                        Write-Host "Reporte guardado en: $reportePath"
+                    } catch {
+                        Write-Host "Error al realizar la revisión: $_"
+                    }
+                }
+                2 {
+                    try {
+                        # Definimos la ruta de reporte con fecha y hora actuales
+                        $reportePath = "$((Get-Date).ToString('yyyy-MM-dd_HH-mm-ss'))_Reporte_ArchivosOcultos.txt"
+                        Write-Host "Listando archivos ocultos"
+                        # Si se proporcionó un archivo de entrada, usarlo; de lo contrario, ejecutar la función
+                        if ($InputFile) {
+                            Write-Host "Usando el archivo de entrada: $InputFile para búsqueda de archivos ocultos"
+                            Get-Content $InputFile | ForEach-Object { Get-HiddenFiles $_ } | Out-File -FilePath $reportePath -Encoding utf8
+                        } else {
+                            Get-HiddenFiles | Out-File -FilePath $reportePath -Encoding utf8
+                        }
+                        Write-Host "Reporte guardado en: $reportePath"
+                    } catch {
+                        Write-Host "Error al buscar los archivos ocultos: $_"
+                    }
+                }
+                3 {
+                    try {
+                        Write-Host "Listado de uso de Recursos"
+                        Get-ResourceUsage
+                    } catch {
+                        Write-Host "Error en el listado de Recursos: $_"
+                    }
+                }
+                4 {  
+                    try {
+                        Write-Host "Tarea con más recursos"
+                        TopProcess
+                    } catch { 
+                        Write-Host "Error al mostrar la tarea: $_"
+                    }
+                }
+                5 { 
+                    Write-Host "Saliendo..."
+                    exit
+                }
+                default {
+                    Write-Host "Opción no válida. Por favor, elige una opción del 1 al 5."
+                }
+            }
+        } catch {
+            Write-Host "Error general: $_"
+        } finally {
+            Write-Host "Operación finalizada"
+        }
+    } while ($true)
+}
+ 
+# Ejecutamos la función con los parámetros opcionales
+param (
+    [string]$InputFile
+)
+ 
+get-menu -InputFile $InputFile
