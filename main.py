@@ -18,11 +18,11 @@ def menu():
         opcion = input("Selecciona una opción: ")
         
         if opcion == '1':
-            ejecutar_script("bash tu_script.sh")  # Cambia 'tu_script.sh' por el nombre correcto del script Bash
+            ejecutar_script("bash tu_script.sh")  # Cambiar el nombre del script 
         elif opcion == '2':
-            ejecutar_script("pwsh -File script.pia.ps1")  # Cambia 'tu_script.ps1' por la ruta correcta del script de PowerShell
+            ejecutar_script("pwsh -File script.pia.ps1") 
         elif opcion == '3':
-            ejecutar_script(f"{sys.executable} tu_script.py")  # Cambia 'tu_script.py' por la ruta correcta del script de Python
+            ejecutar_script(f"{sys.executable} main3.py")  
         elif opcion == '4':
             print("Saliendo del programa.")
             break
