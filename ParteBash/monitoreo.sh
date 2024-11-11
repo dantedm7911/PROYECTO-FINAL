@@ -14,9 +14,13 @@ INTERFACE="eth0"
 # Tiempo de monitoreo (en segundos)
 TIME=5
 
-# Mostrar la velocidad de la red durante el tiempo que pusiste
-echo "Checando la velocidad en $INTERFACE por $TIME segundos..."
-ifstat -i $INTERFACE 1 $TIME
+#Nombre reporte
+REPORT_FILE= "reporte_red.txt"
+
+echo "Reporte generado el $(date)" > "REPORT.FILE"
+ifstat -i "$INTERFACE" 1 "$TIME" >> "$REPORT_FILE"
+echo "Reporte guardado en $REPORT_FILE"
+
 }
 
 monitoreo
