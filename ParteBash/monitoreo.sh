@@ -15,11 +15,11 @@ INTERFACE="eth0"
 TIME=5
 
 #Nombre reporte
-REPORT_FILE= "reporte_red.txt"
+REPORTE="reporte_red.txt"
 
-echo "Reporte generado el $(date)" > "REPORT.FILE"
-ifstat -i "$INTERFACE" 1 "$TIME" >> "$REPORT_FILE"
-echo "Reporte guardado en $REPORT_FILE"
+echo "Reporte generado el $(date)" > "$REPORTE"
+ifstat -i "$INTERFACE" 1 "$TIME" >> "$REPORTE"
+echo "Reporte guardado en $REPORTE"
 
 }
 
