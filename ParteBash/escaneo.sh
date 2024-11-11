@@ -6,11 +6,11 @@ escaneo(){
 hosts_activos=()
 
 #Reporte
-REPORTE= "reporte_escaneo_red.txt"
+REPORTE="reporte_escaneo_red.txt"
 
 #Mostrar informacion sobre el archivo
 
-echo "Feche y hora: $(date)" >> "REPORTE_FILE"
+echo "Feche y hora: $(date)" >> "REPORTE"
 echo "------------------------------------------" >> "$REPORTE"
 
 
@@ -22,11 +22,15 @@ for i in {1..255}; do
         hosts_activos+=("192.168.56.$i")
     fi
 done
+
+    #Guardar la lista en el REPORTE
+    echo -e "\nDispositivos conectados a la red local:" >> "$REPORTE"
+    for host in "${hosts_activos[@]}"; do
+        echo "$host" >> "REPORTE"
+    done
+
+    echo "Reporte almacenado en $REPORTE"
  
-# Imprime la lista de hosts activos al final
-echo -e "\nDispositivos conectados a la red local:"
-for host in "${hosts_activos[@]}"; do
-    echo "$host"
-done
-}
+ 
+ }
 escaneo
